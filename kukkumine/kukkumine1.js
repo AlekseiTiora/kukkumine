@@ -1,5 +1,5 @@
 var x=35, y=30, r=30;
-var ysamm=2, ykiirendus=0.4;
+var ysamm=1, ykiirendus=0.1;
 var y1=15;
 var y2=15;
 var x1=25;
@@ -10,7 +10,7 @@ var t, g; //tahvel, graafiline kontekst
 function algus(){
     t=document.getElementById("tahvel");
     g=t.getContext("2d");
-    setInterval('liigu()', 100);
+    setInterval('liigu()', 400);
 }
 //joonista palli
 function joonista(){
@@ -19,8 +19,20 @@ function joonista(){
     g.fillStyle="green";
     g.beginPath();
     g.arc(x, y, r, 0, 2*Math.PI, true);
+    g.rect(0, 300, t.width, 200)
+    g.fillStyle="blue";
+    g.opacity = 0.5;
     g.stroke();//joon
     g.fill();//taust
+
+    if(y > t.height) {
+        y = 0;
+        y1 = y - 1;
+        speed = 400;
+        x = randNum(0, t.width);
+        x1 = x - 13;
+        x2 = x + 10;
+    }
 
     g.fillStyle="black";
     g.beginPath();
@@ -35,6 +47,9 @@ function joonista(){
     g.fill();
 
 }
+
+
+
 //kukkumine alla
 function liigu(){
     ysamm=ysamm+ykiirendus;
@@ -68,7 +83,10 @@ function hiirAlla(e){
     y2=hy-14;
     r -= 0.5;
 
-    ysamm=0;
+
+}
+function randNum(min, max) {
+    return Math.random() * (max - min) + min;
 }
 
 
